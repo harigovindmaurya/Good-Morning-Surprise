@@ -1,2 +1,439 @@
-# Good-Morning-Surprise
-My Good Morning Website
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Good Morning ❤️</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Trebuchet MS", sans-serif;
+  min-height: 100vh;
+  color: white;
+  background: linear-gradient(145deg, #10183c, #542b68, #f59b75);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: #ffce76;
+  filter: blur(90px);
+  opacity: .35;
+  top: 10%;
+  right: -100px;
+  pointer-events: none;
+}
+
+.container {
+  width: min(92%, 440px);
+  margin: 0 auto;
+  padding: 28px 0;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 28px;
+  padding: 27px 20px;
+  text-align: center;
+  box-shadow: 0 15px 50px #140c2933;
+  backdrop-filter: blur(14px);
+}
+
+.lock {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+h2 {
+  margin-bottom: 12px;
+}
+
+p {
+  line-height: 1.7;
+}
+
+.pin {
+  width: 100%;
+  margin: 20px 0 15px;
+  padding: 15px;
+  border-radius: 14px;
+  border: 2px solid #ffffff70;
+  background: #ffffff18;
+  color: white;
+  font-size: 27px;
+  letter-spacing: 12px;
+  text-align: center;
+  outline: none;
+}
+
+.pin::placeholder {
+  color: #ffffff90;
+  font-size: 15px;
+  letter-spacing: 2px;
+}
+
+button {
+  border: none;
+  border-radius: 50px;
+  padding: 13px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform .2s;
+}
+
+button:active {
+  transform: scale(.96);
+}
+
+.primary {
+  width: 100%;
+  color: #322047;
+  background: linear-gradient(90deg, #ffe08b, #ffb4a2);
+}
+
+.error {
+  color: #ffe4e4;
+  min-height: 24px;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+#surprise {
+  display: none;
+  animation: appear 1s ease;
+}
+
+.sun {
+  font-size: 82px;
+  margin: 15px 0;
+  animation: shine 3s infinite ease-in-out;
+}
+
+h1 {
+  font-size: clamp(35px, 10vw, 48px);
+  color: #ffe49b;
+  text-shadow: 0 3px 25px #ffc85b65;
+  margin-bottom: 14px;
+}
+
+.name {
+  color: #fff0b4;
+  font-size: 23px;
+  margin: 12px 0;
+}
+
+.message {
+  font-size: 17px;
+  margin: 20px 0;
+}
+
+.quote {
+  background: #ffffff15;
+  padding: 17px;
+  border-radius: 18px;
+  margin: 18px 0;
+  font-style: italic;
+}
+
+.actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.secondary {
+  background: #ffffff20;
+  color: white;
+  border: 1px solid #ffffff50;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px 5px;
+  font-size: 13px;
+  opacity: .85;
+}
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  z-index: 0;
+  pointer-events: none;
+  animation: floatUp 6s linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-115vh) rotate(35deg);
+    opacity: 0;
+  }
+}
+
+@keyframes shine {
+  50% { transform: scale(1.12) rotate(5deg); }
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <section class="card" id="login">
+    <div class="lock">🔐</div>
+    <h2>Ek Chhota Sa Surprise!</h2>
+    <p>Good Morning message dekhne ke liye<br>4 digit demo PIN enter karo ❤️</p>
+
+    <input
+      class="pin"
+      id="pin"
+      type="password"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="4 digit PIN"
+      autocomplete="off"
+      aria-label="4 digit demo PIN"
+    >
+
+    <button class="primary" onclick="unlock()">
+      Open My Surprise ✨
+    </button>
+
+    <div class="error" id="error" aria-live="polite"></div>
+    <p style="font-size:12px;opacity:.8">
+      Demo PIN: 1234
+    </p>
+  </section>
+
+  <section class="card" id="surprise">
+    <div class="sun">🌅</div>
+    <h1>Good Morning!</h1>
+
+    <div class="name" id="greetingName">
+      Dear Friend ❤️
+    </div>
+
+    <p class="message">
+      सुप्रभात! 🌸<br>
+      भगवान करे तुम्हारी सुबह मुस्कान से शुरू हो,
+      दिन खुशियों से भरा रहे और हर सपना
+      धीरे-धीरे हकीकत बने।
+    </p>
+
+    <div class="quote">
+      ✨ "हर सुबह एक नया मौका है,
+      कुछ अच्छा करने का और
+      जिंदगी को खूबसूरत बनाने का।" ✨
+    </div>
+
+    <p style="font-size:18px">
+      ☕ एक कप चाय, ढेर सारी खुशियाँ<br>
+      और तुम्हारे चेहरे पर प्यारी सी मुस्कान 😊
+    </p>
+
+    <div class="actions">
+      <button class="primary" onclick="shareWish()">
+        💌 Share Good Morning
+      </button>
+
+      <button class="secondary" onclick="toggleMusic()">
+        🎵 <span id="musicText">Play Morning Music</span>
+      </button>
+
+      <button class="secondary" onclick="changeWish()">
+        🌷 Another Lovely Wish
+      </button>
+    </div>
+  </section>
+
+  <div class="footer">
+    Made with ❤️ just to make you smile<br>
+    🌞 Stay Happy • Stay Blessed • Keep Smiling 🌷
+  </div>
+</div>
+
+<script>
+const pinInput = document.getElementById("pin");
+let musicOn = false;
+let audioContext = null;
+let musicTimer = null;
+let noteIndex = 0;
+
+pinInput.addEventListener("input", () => {
+  pinInput.value = pinInput.value.replace(/\D/g, "").slice(0, 4);
+});
+
+function unlock() {
+  const pin = pinInput.value;
+  const error = document.getElementById("error");
+
+  if (pin.length !== 4) {
+    error.textContent = "Please 4 digit PIN enter karo 😊";
+    return;
+  }
+
+  if (pin !== "1234") {
+    error.textContent = "PIN sahi nahi hai. Dobara try karo ❤️";
+    pinInput.value = "";
+    return;
+  }
+
+  document.getElementById("login").style.display = "none";
+  document.getElementById("surprise").style.display = "block";
+
+  for (let i = 0; i < 18; i++) {
+    setTimeout(createHeart, i * 180);
+  }
+}
+
+pinInput.addEventListener("keydown", event => {
+  if (event.key === "Enter") unlock();
+});
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = ["💖", "🌸", "✨", "💕", "🌷"][
+    Math.floor(Math.random() * 5)
+  ];
+
+  heart.style.left = Math.random() * 95 + "vw";
+  heart.style.fontSize = (18 + Math.random() * 20) + "px";
+  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8500);
+}
+
+const wishes = [
+  "भगवान करे आज तुम्हारे चेहरे पर हमेशा मुस्कान रहे और हर कदम पर सफलता मिले। ❤️",
+  "नई सुबह, नई उम्मीदें और खुशियों से भरा एक खूबसूरत दिन! 🌷",
+  "आज का दिन तुम्हारे लिए प्यार, शांति और ढेर सारी अच्छी खबरें लेकर आए। ☀️",
+  "खुद पर भरोसा रखो, मुस्कुराते रहो और अपने सपनों की ओर बढ़ते रहो। ✨"
+];
+
+function changeWish() {
+  const message = document.querySelector(".message");
+  const current = message.dataset.index
+    ? Number(message.dataset.index)
+    : -1;
+
+  const next = (current + 1) % wishes.length;
+  message.dataset.index = next;
+  message.innerHTML = "सुप्रभात! 🌸<br>" + wishes[next];
+}
+
+async function shareWish() {
+  const name = document.getElementById("greetingName").textContent;
+
+  const text =
+    "🌞 Good Morning " + name + "!\n\n" +
+    "भगवान करे तुम्हारा दिन खुशियों, सफलता और मुस्कान से भरा रहे। 🌸❤️\n\n" +
+    "Have a beautiful day! ✨";
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "Good Morning ❤️",
+        text: text
+      });
+    } catch (error) {
+      if (error.name !== "AbortError") copyWish(text);
+    }
+  } else {
+    copyWish(text);
+  }
+}
+
+async function copyWish(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    alert("Good Morning message copy ho gaya! Ab send kar do ❤️");
+  } catch {
+    prompt("Message copy karke send karo:", text);
+  }
+}
+
+async function toggleMusic() {
+  if (musicOn) {
+    clearInterval(musicTimer);
+    musicOn = false;
+    document.getElementById("musicText").textContent =
+      "Play Morning Music";
+    return;
+  }
+
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioCtx) {
+      alert("Is browser mein music support nahi hai.");
+      return;
+    }
+
+    if (!audioContext) audioContext = new AudioCtx();
+    await audioContext.resume();
+
+    musicOn = true;
+    document.getElementById("musicText").textContent = "Stop Music";
+
+    const notes = [523.25, 659.25, 783.99, 659.25, 587.33, 698.46];
+
+    function playNote() {
+      if (!musicOn) return;
+
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+
+      oscillator.type = "sine";
+      oscillator.frequency.value = notes[noteIndex % notes.length];
+      gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(
+        0.07, audioContext.currentTime + 0.04
+      );
+      gain.gain.exponentialRampToValueAtTime(
+        0.0001, audioContext.currentTime + 0.45
+      );
+
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + 0.5);
+      noteIndex++;
+    }
+
+    playNote();
+    musicTimer = setInterval(playNote, 550);
+  } catch {
+    alert("Music start nahi hua. Dobara button dabao.");
+    musicOn = false;
+  }
+}
+</script>
+</body>
+</html>
